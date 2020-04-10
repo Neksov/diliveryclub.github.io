@@ -309,24 +309,8 @@ template {
 
 .container {
   width: 85%;
-  max-width: 1200px;
-  height: 800px;
-  margin: auto;
-  background-color: #e3fbdd; }
-
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between; }
-
-.col-50 {
-  width: 50%; }
+  max-width: 1440px;
+  margin: auto; }
 
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
@@ -339,30 +323,432 @@ html {
   scroll-behavior: smooth; }
 
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  padding-top: 44px; }
 
 input {
-  outline: none;
-  font-size: 18px;
-  line-height: 35px;
-  font-weight: normal;
-  border: none;
-  border-bottom: 1px solid #939497; }
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px;
+  padding-left: 35px;
+  background-repeat: no-repeat;
+  background-position: left 11px center; }
 
-.mask__row {
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 2px;
+  font-size: 1rem;
+  line-height: 24px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'SF Pro Display', cursive;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .btn:hover {
+    cursor: pointer; }
+  .btn--primary {
+    background: #1890FF;
+    border: 1px solid #1890FF;
+    color: #ffffff;
+    -webkit-transition: -webkit-box-shadow 0.3s;
+    transition: -webkit-box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, -webkit-box-shadow 0.3s; }
+  .btn:active, .btn:focus {
+    outline: none; }
+  .btn--outline {
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.0015);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.0015);
+    border-radius: 2px;
+    color: #595959;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+    .btn--outline:hover {
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url("../fonts/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SFProDisplay-Regular.woff2") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: wrap; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Regular.woff") format("woff"), url("../fonts/Roboto-Regular.woff2") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: wrap; }
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+.input-address {
+  -webkit-box-flex: 0.8;
+  -ms-flex: 0.8;
+  flex: 0.8;
+  background-image: url(../img/home.svg); }
+
+.btn__icon {
+  margin-right: 6px; }
+
+.btn--primary {
+  margin-right: 9px; }
+
+.buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center; }
 
-.maskinfo {
-  max-width: 100%; }
+.main {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1.04%, rgba(245, 245, 245, 0)), to(#F5F5F5));
+  background: linear-gradient(180deg, rgba(245, 245, 245, 0) 1.04%, #F5F5F5 100%); }
+
+.promo {
+  margin-top: 37px;
+  margin-bottom: 56px; }
+  .promo__hero {
+    -webkit-box-shadow: 0px 7px 12px rgba(158, 158, 163, 0.1);
+    box-shadow: 0px 7px 12px rgba(158, 158, 163, 0.1);
+    background: #FFF1B8 url(../img/promoimg.png) no-repeat top -91px right -242px/844px;
+    border-radius: 10px;
+    padding: 68px 70px; }
+  .promo__text {
+    max-width: 32rem;
+    font-size: 24px;
+    line-height: 28px; }
+  .promo__title {
+    font-size: 39px;
+    line-height: 46px; }
+
+.restaurants__heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 44px; }
+
+.restaurants__title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  margin: 0; }
+
+.input-search {
+  background-image: url(../img/search.svg);
+  width: 19rem; }
+
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+.card {
+  background: #FFFFFF;
+  -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  -ms-flex-preferred-size: 32%;
+  flex-basis: 32%; }
+  .card__image {
+    width: 23rem;
+    height: 15.625rem;
+    -o-object-fit: cover;
+    object-fit: cover; }
+  .card-text {
+    padding-top: 20px;
+    padding-bottom: 35px;
+    padding-left: 23px;
+    padding-right: 23px; }
+  .card-heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between; }
+  .card-title {
+    margin: 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px; }
+  .card-tag {
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    color: #ffffff;
+    background: #262626;
+    border-radius: 2px;
+    padding: 1px 8px; }
+  .card-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+
+.rating {
+  margin-right: 26px;
+  color: #FFC107;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 32px; }
+
+.price, .category {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 32px;
+  color: #8C8C8C; }
+
+.price {
+  margin-right: 10px; }
+  .price::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background-color: #8C8C8C;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-left: 10px; }
+
+.category {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 150px; }
+
+.footer {
+  padding: 60px 0; }
+  .footer-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between; }
+  .footer-link {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    display: inline-block;
+    text-decoration: none;
+    color: #595959; }
+    .footer-link:not(:last-child) {
+      margin-right: 15px; }
+  .footer-nav {
+    margin-right: auto;
+    margin-left: 35px; }
+
+.social-links {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.social-link:not(:last-child) {
+  margin-right: 21px; }
+
+@media (max-width: 1366px) {
+  .container {
+    max-width: 966px; }
+  .promo__hero {
+    background-size: 550px;
+    background-position: top 100px right -200px; }
+  .category,
+  .price {
+    font-size: 14px; }
+  .rating {
+    margin-right: 15px; } }
+
+@media (max-width: 1030px) {
+  .promo__hero {
+    background-size: 500px; } }
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 750px; }
+  .promo__hero {
+    background-size: 500px; }
+  .promo__title {
+    font-size: 30px; }
+  .promo__text {
+    font-size: 15px;
+    max-width: 20rem; }
+  .card {
+    -ms-flex-preferred-size: 49%;
+    flex-basis: 49%; } }
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 560px; }
+  .rating {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%; }
+  .card-info {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+  .card-title {
+    font-size: 18px; }
+  .promo__title {
+    font-size: 28px;
+    line-height: 30px; }
+  .promo__text {
+    font-size: 12px;
+    max-width: 16rem;
+    line-height: 1rem; } }
+
+@media (max-width: 578px) {
+  .container {
+    width: 90%; }
+  .header {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+  .input-address {
+    margin-top: 15px;
+    -webkit-box-ordinal-group: 6;
+    -ms-flex-order: 5;
+    order: 5;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+  .promo__hero {
+    background-image: none; }
+  .promo__title {
+    font-size: 28px;
+    line-height: 30px; }
+  .promo__text {
+    font-size: 16px;
+    max-width: 22rem;
+    line-height: 1rem; }
+  .restaurants__title {
+    font-size: 25px; }
+  .card {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%; }
+    .card__image {
+      width: 100%; }
+  .footer {
+    padding: 30px 0; }
+    .footer-block {
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start; }
+    .footer-nav {
+      -webkit-box-ordinal-group: 1;
+      -ms-flex-order: 0;
+      order: 0;
+      margin-left: 0;
+      margin-right: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+    .footer-logo {
+      -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+      order: 1;
+      margin-right: 15px; }
+  .social-links {
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 2;
+    order: 2; } }
+
+@media (max-width: 480px) {
+  .promo__title {
+    font-size: 32px;
+    line-height: 30px; }
+  .promo__text {
+    font-size: 20px;
+    line-height: 2rem; }
+  .restaurants__heading {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+  .btn {
+    min-height: 40px; }
+    .btn-text {
+      display: none; }
+    .btn__icon {
+      margin: 0; }
+  .footer-block {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+  .footer-logo {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0;
+    margin-bottom: 20px; }
+  .footer-nav {
+    margin-bottom: 20px;
+    text-align: center; }
+  .footer-link:not(:last-child) {
+    margin-right: 0; } }

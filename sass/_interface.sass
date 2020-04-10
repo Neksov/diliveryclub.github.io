@@ -1,0 +1,30 @@
+.btn
+  padding: 8px 16px
+  border: none
+  border-radius: 2px
+  font-size: 1rem
+  line-height: 24px
+  font-style: normal
+  font-weight: normal
+  font-family: 'SF Pro Display', cursive
+  display: flex
+  align-items: center
+  &:hover
+    cursor: pointer
+  &--primary
+    background: #1890FF
+    border: 1px solid #1890FF
+    color: #ffffff
+    transition: box-shadow 0.3s
+      //убираем синию обвотку при нажатии на кнопку
+  &:active, &:focus 
+    outline: none
+  &--outline
+    background: #FFFFFF
+    border: 1px solid #D9D9D9
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.0015)
+    border-radius: 2px
+    color: #595959
+    box-sizing: border-box
+    &:hover
+      box-shadow: none
