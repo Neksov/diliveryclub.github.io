@@ -1,8 +1,8 @@
 .restaurants
+  margin-top: 30px
   &__heading
     display: flex
     align-items: center
-    justify-content: space-between
     margin-bottom: 44px
   &__title
     font-style: normal
@@ -10,10 +10,12 @@
     font-size: 36px
     line-height: 42px
     margin: 0
+    margin-right: 30px
   
 .input-search
   background-image: url(../img/search.svg)
   width: 19rem  
+  margin-left: auto
 .cards
   display: flex
   flex-wrap: wrap
@@ -26,6 +28,8 @@
   overflow: hidden
   margin-bottom: 30px
   flex-basis: 32%
+  text-decoration: none
+  cursor: pointer
   &__image    
     width: 23rem
     height: 15.625rem
@@ -45,6 +49,21 @@
     font-weight: bold
     font-size: 24px
     line-height: 32px
+    &-reg
+      font-weight: 400
+  
+  &-price
+    &-bold
+      font-style: normal
+      font-weight: bold
+      font-size: 20px
+      line-height: 32px
+      margin-left: 32px
+  &-buttons
+    display: flex
+    align-items: center
+    margin-top: 24px
+
   &-tag
     font-family: 'SF Pro Display'
     font-style: normal
@@ -59,6 +78,10 @@
     display: flex
     align-items: center
     flex-wrap: wrap
+  &__indgredients
+    font-size: 18px
+    line-height: 21px
+    color: #8C8C8C
 .rating
   margin-right: 26px
   color: #FFC107
