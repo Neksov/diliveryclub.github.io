@@ -1,4 +1,8 @@
-const { src, dest, watch } = require("gulp");
+const {
+  src,
+  dest,
+  watch
+} = require("gulp");
 const browserSync = require("browser-sync").create();
 const sass = require("gulp-sass");
 const autoprefixer = require("gulp-autoprefixer");
@@ -29,16 +33,16 @@ function bs() {
 function serverSass() {
   return (
     src("./sass/*.sass")
-      .pipe(sass())
-      //для префиксов
-      .pipe(
-        autoprefixer({
-          overrideBrowserslist: ["last 2 versions"],
-          cascade: false
-        })
-      )
-      .pipe(dest("./css"))
-      .pipe(browserSync.stream())
+    .pipe(sass())
+    //для префиксов
+    .pipe(
+      autoprefixer({
+        overrideBrowserslist: ["last 2 versions"],
+        cascade: false
+      })
+    )
+    .pipe(dest("./css"))
+    .pipe(browserSync.stream())
   );
 }
 
@@ -46,7 +50,7 @@ exports.server = bs;
 
 // Compress Task
 
-gulp.task("compress", function() {
+gulp.task("compress", function () {
   gulp
     .src("img/*") //папка из которой берем
     .pipe(imagemin())
@@ -54,7 +58,7 @@ gulp.task("compress", function() {
 });
 
 //minCSS-gulp mincss
-gulp.task("mincss", function() {
+gulp.task("mincss", function () {
   return gulp
     .src("css/*.css")
 
@@ -70,7 +74,7 @@ gulp.task("mincss", function() {
 });
 
 //minJS-gulp minjs
-gulp.task("min-js", function() {
+gulp.task("min-js", function () {
   return gulp
     .src("js/*.js")
     .pipe(
