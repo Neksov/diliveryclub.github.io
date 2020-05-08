@@ -1,15 +1,8 @@
+'use strict';
+
 const cartButton = document.querySelector("#cart-button");
 const modal = document.querySelector(".modal");
 const close = document.querySelector(".close");
-
-cartButton.addEventListener("click", toggleModal);
-close.addEventListener("click", toggleModal);
-
-function toggleModal() {
-  modal.classList.toggle("is-open");
-}
-
-//DAY1//
 const buttonAuth = document.querySelector('.button-auth');
 const modalAuth = document.querySelector('.modal-auth');
 const closeAuth = document.querySelector('.close-auth');
@@ -19,6 +12,12 @@ const userName = document.querySelector('.user-name');
 const buttonOut = document.querySelector('.button-out');
 const buttonLogin = document.querySelector('.button-login');
 const labelAuth = document.querySelector('.label-auth');
+const cardsRestaurants = document.querySelector('.cards-restaurants');
+const containerPromo = document.querySelector('.container-promo');
+const restaurants = document.querySelector('.restaurants');
+const menu = document.querySelector('.menu');
+const logo = document.querySelector('.logo');
+const cardsMenu = document.querySelector('.cards-menu');
 
 
 let login = localStorage.getItem('Delivery');
@@ -28,10 +27,37 @@ modalAuth.classList.remove('.modal-auth');
 modalAuth.classList.toggle('Hello');// добавляет или удаляет*/
 
 //console.dir(modalAuth); //dir-выводит в консоле в виде обьекта
+const cart = [];
+//асинхронная функиця
+const getData = async function (url) {
+  //запрос на сервер
+  const response = await fetch(url);
 
-function toogleModalAuth() {
+  if (!response.ok) {
+    throw new Error(`Ошибка по адресу ${url}, статус ошибка ${response.status}!`);
+  }
+  return await response.json();
+}
+
+//валидация
+const valid = function (str) {
+  const nameReg = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
+  return nameReg.test(str); //возвращает true или false 
+}
+
+const toggleModal = function () {
+  modal.classList.toggle("is-open");
+}
+
+const toogleModalAuth = function () {
   loginInput.style.borderColor = '';
   modalAuth.classList.toggle('is-open');
+}
+
+function returnMain() {
+  containerPromo.classList.remove('hide')
+  restaurants.classList.remove('hide')
+  menu.classList.add('hide')
 }
 
 function authorized() {
@@ -42,14 +68,19 @@ function authorized() {
     buttonAuth.style.display = '';
     userName.style.display = '';
     buttonOut.style.display = '';
+    cartButton.style.display = '';
+
     buttonOut.removeEventListener('click', logOut);
     checkAuth();
+    returnMain();
   }
   console.log('Авторизован');
   userName.textContent = login; //свойство которое содержит текст внутри этого элемента
   buttonAuth.style.display = 'none'; //скрываем кнопку после того как авториз
   userName.style.display = 'inline';
-  buttonOut.style.display = 'block';
+  buttonOut.style.display = 'flex';
+  cartButton.style.display = 'flex';
+
   buttonOut.addEventListener('click', logOut);
 }
 
@@ -63,7 +94,7 @@ function notAuthorized() {
   function logIn(event) {
     event.preventDefault(); //чтоб не перезагружалась страница
 
-    if (maskInput(loginInput.value)) { //метод trim удаляет пробелы
+    if (valid(loginInput.value)) { //метод trim удаляет пробелы
       login = loginInput.value; //вводим новое значение в поле имя
       //метод setItem добовляет свойство со значением в наш localStorage
       localStorage.setItem('Delivery', login);
@@ -74,7 +105,9 @@ function notAuthorized() {
       logInForm.removeEventListener('submit', logIn);
       logInForm.reset(); //очищаем поля ввода
     } else {
-      loginInput.style.borderColor = 'red'
+      loginInput.style.borderColor = 'red' //подкрашивает рамку
+      loginInput.value = '' //очищает
+
     }
 
 
@@ -94,4 +127,141 @@ function checkAuth() {
     notAuthorized();
   }
 }
-checkAuth();
+
+function createCardRestaurant({
+  image,
+  kitchen,
+  name,
+  price,
+  products,
+  stars,
+  time_of_delivery: timeOfDelivery
+}) {
+
+  console.log(stars)
+  const card = `
+    <a class="card card-restaurant" data-products="${products}">
+    <img src="${image}" alt="image" class="card-image" />
+    <div class="card-text">
+      <div class="card-heading">
+        <h3 class="card-title">${name}</h3>
+        <span class="card-tag tag">${timeOfDelivery} мин</span>
+      </div>
+      <div class="card-info">
+        <div class="rating">
+        ${stars}
+        </div>
+        <div class="price">От  ${price} ₽</div>
+        <div class="category">${kitchen}</div>
+      </div>
+    </div>
+    </a>
+  `;
+  //добавляем карточку
+  cardsRestaurants.insertAdjacentHTML('beforeend', card)
+}
+
+function createCardGood({
+  description,
+  image,
+  name,
+  price,
+  id
+}) {
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.insertAdjacentHTML('beforeend', `
+      <img src="${image}" alt="image" class="card-image" />
+      <div class="card-text">
+        <div class="card-heading">
+          <h3 class="card-title card-title-reg">${name}</h3>
+        </div>
+        <div class="card-info">
+          <div class="ingredients">${description}
+          </div>
+        </div>
+        <div class="card-buttons">
+          <button class="button button-primary button-add-cart" id="${id}">
+            <span class="button-card-text">В корзину</span>
+            <span class="button-cart-svg"></span>
+          </button>
+          <strong class="card-price card-price-bold">${price} ₽</strong>
+        </div>
+      </div>
+  `);
+  cardsMenu.insertAdjacentElement('beforeend', card)
+}
+
+function openGoods(event) {
+  const target = event.target; //нужен чтоб определить на какую карточку кликнули
+  if (login) {
+
+    const restaurant = target.closest('.card-restaurant'); //closest()- метод который подымается по выше стоящим элементам ,пока не найдет елемент с этим селектором,если не найдет вернет null
+    if (restaurant) {
+      //очещаем cardsMenu
+      cardsMenu.textContent = '';
+      containerPromo.classList.add('hide');
+      restaurants.classList.add('hide');
+      menu.classList.remove('hide');
+
+      getData(`./db/${restaurant.dataset.products}`).then(function (data) {
+        data.forEach(createCardGood);
+      });
+    } else {
+      toogleModalAuth();
+    }
+  }
+}
+
+//корзина
+function addToCart(event) {
+  const target = event.target;
+  const buttonAddToCart = target.closest('.button-add-cart');
+  if (buttonAddToCart) {
+    const card = target.closest('.card');
+    const title = card.querySelector('.card-title-reg').textContent;
+    const cost = card.querySelector('.card-price').textContent;
+    const id = buttonAddToCart.id;
+    const food = cart.find(function (item) {
+      return item.id === id;
+    })
+    if (food) {
+      food.count += 1;
+    }
+    cart.push({
+      id: id,
+      title: title,
+      cost: cost,
+      count: 1
+    });
+    console.log(cart);
+  }
+}
+
+function init() {
+  getData(`./db/partners.json`).then(function (data) {
+    data.forEach(createCardRestaurant);
+  });
+  //оброботчики событий
+  cartButton.addEventListener("click", toggleModal);
+
+  close.addEventListener("click", toggleModal);
+  cardsMenu.addEventListener('click', addToCart);
+  cardsRestaurants.addEventListener('click', openGoods);
+
+  logo.addEventListener('click', function () {
+    containerPromo.classList.remove('hide')
+    restaurants.classList.remove('hide')
+    menu.classList.add('hide')
+  });
+
+  checkAuth();
+
+  new Swiper('.swiper-container', {
+    loop: true,
+    autoplay: true,
+  });
+}
+
+init();
