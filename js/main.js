@@ -18,6 +18,9 @@ const restaurants = document.querySelector('.restaurants');
 const menu = document.querySelector('.menu');
 const logo = document.querySelector('.logo');
 const cardsMenu = document.querySelector('.cards-menu');
+const modalPrice = document.querySelector('.modal-pricetag');
+const modalBody = document.querySelector('.modal-body');
+const buttonClearCart = document.querySelector('.clear-cart');
 
 
 let login = localStorage.getItem('Delivery');
@@ -138,7 +141,6 @@ function createCardRestaurant({
   time_of_delivery: timeOfDelivery
 }) {
 
-  console.log(stars)
   const card = `
     <a class="card card-restaurant" data-products="${products}">
     <img src="${image}" alt="image" class="card-image" />
@@ -228,14 +230,54 @@ function addToCart(event) {
     })
     if (food) {
       food.count += 1;
+    } else {
+      cart.push({
+        id,
+        title,
+        cost,
+        count: 1
+      });
     }
-    cart.push({
-      id: id,
-      title: title,
-      cost: cost,
-      count: 1
+  }
+}
+
+function renderCart() {
+  modalBody.textContent = '';//очищаем корзину
+  cart.forEach(function ({ id, title, cost, count }) {
+    const itemCart = `
+    <div class="food-row">
+      <span class="food-name">${title}</span>
+      <strong class="food-price">${cost}</strong>
+      <div class="food-counter">
+        <button class="counter-button counter-minus" data-id=${id}>-</button>
+        <span class="counter">${count}</span>
+        <button class="counter-button counter-plus" data-id=${id}>+</button>
+      </div>
+    </div>
+    `;
+
+    modalBody.insertAdjacentHTML('afterbegin', itemCart)
+  });
+  const totalPrice = cart.reduce(function (result, item) {
+    return result + (parseFloat(item.cost) * item.count); //сумируем в карзине
+  }, 0);
+  modalPrice.textContent = totalPrice + 'P';
+}
+//будем определять куда кликнули +\-
+function changeCount(event) {
+  const target = event.target
+  if (target.classList.contains('counter-button')) {
+    const food = cart.find(function (item) {
+      return item.id === target.dataset.id;
     });
-    console.log(cart);
+    if (target.classList.contains('counter-minus')) {
+      food.count--;
+      if (food.count === 0) {
+        cart.splice(cart.indexOf(food), 1);
+      }
+    };
+    if (target.classList.contains('counter-plus')) food.count++;
+    renderCart();
   }
 }
 
@@ -244,8 +286,18 @@ function init() {
     data.forEach(createCardRestaurant);
   });
   //оброботчики событий
-  cartButton.addEventListener("click", toggleModal);
+  cartButton.addEventListener("click", function () {
+    renderCart();
+    toggleModal();
+  });
+  // обнуление карзины
+  buttonClearCart.addEventListener('click', function () {
+    cart.length = 0;
+    renderCart();
 
+  });
+
+  modalBody.addEventListener('click', changeCount);
   close.addEventListener("click", toggleModal);
   cardsMenu.addEventListener('click', addToCart);
   cardsRestaurants.addEventListener('click', openGoods);

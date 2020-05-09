@@ -501,7 +501,7 @@ button {
 }
 
 .food-price {
-  margin-left: auto;
+  margin-left: 20px;
   margin-right: 47px;
   font-weight: bold;
   font-size: 20px;
@@ -564,6 +564,7 @@ button {
   padding: 15px 20px;
   font-size: 20px;
   line-height: 23px;
+  margin-right: 2rem;
 }
 
 @media (max-width: 1366px) {
